@@ -2,7 +2,7 @@ path(path, genpath('~/RRNN-git'));
 clear all;
 
 % Parametres ECM
-FLAG_CORR=0;
+FLAG_CORR = 1;
 prop_H = 1 % Horizon
 
 % Reseau : general
@@ -23,7 +23,7 @@ net.J_barre = [J_ref -J_ref;
                J_ref -J_ref];
 
 % Delais (uniformes)
-sigma_tau =  19
+sigma_tau =  19; %
 net.tau_min= (20 - sigma_tau) * ones(net.nb_pop);
 net.tau_moy= sigma_tau * ones(2);
 
@@ -32,11 +32,12 @@ nbp=500;
 load tab_stat_091228;
 net.data=data;
 
-mem.M = {zeros(31,31),zeros(31,31)}
-mem.Q = {zeros(31,31),zeros(31,31)}
-mem.C = {zeros(31,31),zeros(31,31)}
+mem.M = {zeros(31,31),zeros(31,31)};
+mem.Q = {zeros(31,31),zeros(31,31)};
+mem.C = {zeros(31,31),zeros(31,31)};
 
-for i = 1:31
+%for i = 1:31
+    i = 4;
     I_ref = 0.1 * (i -1);
     net.I{1} = I_ref;%0;%
     net.I{2} = I_ref;%0;%
@@ -54,7 +55,7 @@ for i = 1:31
             mem.C{1}(i,j) = net.ECM.DYN_C(1,nbp);
             mem.C{2}(i,j) = net.ECM.DYN_C(2,nbp);
         end
-        save simu_ECM_1403_J10_tau10_unif_H1_noC mem
+        save simu_ECM_1403_J10_tau10_unif_H1_I03 mem
     end
-end
+%end
 

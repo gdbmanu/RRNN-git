@@ -20,11 +20,11 @@ net.ECM.DYN_M=[];
 net.ECM.DYN_Q=[];
 net.ECM.DYN_C=[];
 
-H=max(prop_H * net.nbp_m, net.nbp_d);
-
-f0 =  0.2; %0.01; %
-
 tau_ref = net.tau_min(1,1) + net.tau_moy(1,1);
+H = prop_H * net.nbp_m;
+
+f0 =  0.1; %0.01; %
+
 tau_max = max(H+1, 2 * tau_ref - net.tau_min(1,1));
 
 net.ECM.m=f0*ones(nb_pop,tau_max);

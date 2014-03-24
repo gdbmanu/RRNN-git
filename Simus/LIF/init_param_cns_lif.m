@@ -57,7 +57,7 @@ net.grad = zeros(net.nb_pop);
 
 net.densite=ones(net.nb_pop);          % densit� de connexion (entre 0 et 1)
                             
-net.distr={'chi2','chi2'}; % net.distr : distribution de poids :
+net.distr={'unif','unif'}; % net.distr : distribution de poids :
                                              % 'gauss' : distribution gaussienne
                                              % 'unif' : distribution uniforme
                                              % 'exp' : distribution exponentielle
@@ -131,25 +131,24 @@ net.J_barre = net.connex;
 
 net.J_barre_eff = net.J_barre; % .* net.param_tau;
 
-net.sigma_J_eff = abs(net.connex/d); % .* net.param_tau;
+net.sigma_J_eff = abs(net.connex/d); % .* net.param_.tau;
 
 net.N_aff=(net.N*ones(1,net.nb_pop))';                                              
                        
-
 %%%% DENSITE CONTRAINTE : AJUSTEMENT DE LA DENSITE SELON J_BARRE ET SIGMA_J_EFF %%%%                                
      
 d_eff = net.J_barre_eff./sqrt(net.sigma_J_eff.^2+(net.J_barre_eff.^2)./net.N_aff);
 
 %net.K = d_eff.^2;          % poids constants (loi uniforme)
 
-%net.K = 4/3 * d_eff.^2;   % poids [0,m] (loi uniforme)
+net.K = 4/3 * d_eff.^2;   % poids [0,m] (loi uniforme)
 
 %net.K = 2*d_eff.^2;         % loi exponentielle
 
 %%%% DENSITE NON CONTRAINTE %%%%
 
-net.K = [100 100;
-         100 100]; % 
+%net.K = [100 100;
+%         100 100]; % 
 
 %net.K = net.N_aff; %K; % loi chi2 ou gauss (pas d'ajustement)
 
