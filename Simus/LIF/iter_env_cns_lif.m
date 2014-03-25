@@ -1,18 +1,18 @@
 
-period_1 = 120;%50; %60; %6 ; %300; %* net.N(1) / sum(net.DYN_S{1}(:,net.t_abs)) / net.delta_t;
-period_2 = 20;%
+period_1 = 120; %50; %60; %6 ; %300; %* net.N(1) / sum(net.DYN_S{1}(:,net.t_abs)) / net.delta_t;
+period_2 = 20; %
 
 net.t_out = net.t_abs; %
 
 %net.t_out = net.t_out + sum(net.S{1}(:,20)) / net.N(1);%  / net.delta_t;
 
 if ((2 * pi * mod(net.t_out/period_1, 1)) > pi) & ((2 * pi * mod(net.t_out/period_1, 1)) < 3 * pi/2) & (net.FLAG_P_CHANGE == 1)
-    if rand() > 1 %1/3
+    if rand() < net.FLAG_RENEWAL_RATE %1/3
         %net.FLAG_P_NEW = 1;
         %net.P12 = randn(net.N(1),1); net.P22 = randn(net.N(2), 1);
-        net.A1 =  2 * rand(net.N(1),1); % 0.35;%
+        net.A1 =  randn(net.N(1),1); % 0.35;%
         net.phi1 = rand(net.N(1),1) * 2 * pi; % 0;%
-        net.A2 =  2 * rand(net.N(2),1); % 0.35;%
+        net.A2 =  randn(net.N(2),1); % 0.35;%
         net.phi2 = rand(net.N(2),1) * 2 * pi; % 0;%
     else
         disp(['Pat : t = ' , num2str(net.t_abs)]);
