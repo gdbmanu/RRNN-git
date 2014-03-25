@@ -57,7 +57,7 @@ net.grad = zeros(net.nb_pop);
 
 net.densite=ones(net.nb_pop);          % densit� de connexion (entre 0 et 1)
                             
-net.distr={'unif','unif'}; % net.distr : distribution de poids :
+net.distr={'exp','exp'}; % net.distr : distribution de poids :
                                              % 'gauss' : distribution gaussienne
                                              % 'unif' : distribution uniforme
                                              % 'exp' : distribution exponentielle
@@ -114,7 +114,7 @@ g = 0; % I/E ( Brunel / 4)
 
 J_ref= 10; %10; %3; % 20; %15; %10; %
 
-sigma_J_ref = 1;  %2; % sigma_J_total 
+sigma_J_ref = 2;  %2; % sigma_J_total 
 
 d = J_ref * sqrt(1 + (1 + g/J_ref)^2) / sigma_J_ref;
 
@@ -141,9 +141,9 @@ d_eff = net.J_barre_eff./sqrt(net.sigma_J_eff.^2+(net.J_barre_eff.^2)./net.N_aff
 
 %net.K = d_eff.^2;          % poids constants (loi uniforme)
 
-net.K = 4/3 * d_eff.^2;   % poids [0,m] (loi uniforme)
+%net.K = 4/3 * d_eff.^2;   % poids [0,m] (loi uniforme)
 
-%net.K = 2*d_eff.^2;         % loi exponentielle
+net.K = 2*d_eff.^2;         % loi exponentielle
 
 %%%% DENSITE NON CONTRAINTE %%%%
 
@@ -174,12 +174,12 @@ net.FLAG_GRAD='';
         
 %%% DELAIS
 
-sigma_tau =  8;%19;  %8; %8;% net.nbp_d - 1;%
+sigma_tau =  19; %8;%  %8; %8;% net.nbp_d - 1;%
 net.tau_min= (20 - sigma_tau) * ones(net.nb_pop); %(net.nbp_d - sigma_tau) * ones(net.nb_pop);%net.nbp_d * ones(net.nb_pop);%net.nbp_d-4;%(param. fred)              % net.tau_min : delai de transmission minimal                
 
 net.tau_moy= sigma_tau * ones(2);% [net.nbp_d-1    net.nbp_d-1;       %[0 0; % net.tau_moy : parametre pour la distribution de poisson
              %net.nbp_d-1    net.nbp_d-1];      % 0 0]; %
-net.FLAG_UNIF = 0;                  % delais uniformes / Poisson
+net.FLAG_UNIF = 1;                  % delais uniformes / Poisson
                           
                                            % (la valeur 0 indique des delais constants)
 
@@ -209,7 +209,7 @@ net.FLAG_STD = 0;
 net.FLAG_REV = 0; 
     net.V_plus = 5;
     net.V_moins = -1;
-net.FLAG_SCALING = 1;
+net.FLAG_SCALING = 0;
 net.FLAG_STDP_EPS = 0;
 net.FLAG_BAYES = 0;
 net.FLAG_THETA = 0;

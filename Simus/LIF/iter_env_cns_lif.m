@@ -2,12 +2,12 @@
 period_1 = 120;%50; %60; %6 ; %300; %* net.N(1) / sum(net.DYN_S{1}(:,net.t_abs)) / net.delta_t;
 period_2 = 20;%
 
-net.t_out = 0; %net.t_abs; %
+net.t_out = net.t_abs; %
 
 %net.t_out = net.t_out + sum(net.S{1}(:,20)) / net.N(1);%  / net.delta_t;
 
-if  0%((2 * pi * mod(net.t_out/period_1, 1)) > pi) & ((2 * pi * mod(net.t_out/period_1, 1)) < 3 * pi/2) & (net.FLAG_P_CHANGE == 1)
-    if rand() > 1/3
+if ((2 * pi * mod(net.t_out/period_1, 1)) > pi) & ((2 * pi * mod(net.t_out/period_1, 1)) < 3 * pi/2) & (net.FLAG_P_CHANGE == 1)
+    if rand() > 1 %1/3
         %net.FLAG_P_NEW = 1;
         %net.P12 = randn(net.N(1),1); net.P22 = randn(net.N(2), 1);
         net.A1 =  2 * rand(net.N(1),1); % 0.35;%
@@ -26,7 +26,7 @@ if  0%((2 * pi * mod(net.t_out/period_1, 1)) > pi) & ((2 * pi * mod(net.t_out/pe
     net.FLAG_P_CHANGE = 0;
 end;
 
-if 0%((2 * pi * mod(net.t_out/period_1, 1)) > 3 * pi/2) & (net.FLAG_P_CHANGE == 0)
+if ((2 * pi * mod(net.t_out/period_1, 1)) > 3 * pi/2) & (net.FLAG_P_CHANGE == 0)
     %if net.FLAG_P_NEW
     %    net.FLAG_P_NEW = 0;
     %    net.P11 = randn(net.N(1),1); net.P21 = randn(net.N(2),1);
@@ -36,12 +36,12 @@ if 0%((2 * pi * mod(net.t_out/period_1, 1)) > 3 * pi/2) & (net.FLAG_P_CHANGE == 
     net.FLAG_P_CHANGE = 1;
 end;
 
-net.I{1} =  net.A1 .* cos(2 * pi * net.t_out / period_1 + net.phi1);
+net.I{1} =  net.A1 .* (cos(2 * pi * net.t_out / period_1 + net.phi1));
 %net.I{1} = net.I{1}.* (net.I{1} > 0);
 %net.I{1} = net.P11 * cos(2 * pi * net.t_out / period_1) + net.P12 * sin(2 * pi * net.t_out / period_1);
 %net.I{1} = (1 + sin(2 * pi * net.t_out / period_2)) * net.I{1};
 
-net.I{2} =  net.A2 .* cos(2 * pi * net.t_out / period_1 + net.phi2);
+net.I{2} =  net.A2 .* (cos(2 * pi * net.t_out / period_1 + net.phi2));
 %net.I{2} = net.I{2}.* (net.I{2} > 0);
 %net.I{2} = net.P21 * cos(2 * pi * net.t_out / period_1) + net.P22 * sin(2 * pi * net.t_out / period_1); 
 %net.I{2} = (1 + sin(2 * pi * net.t_out / period_2)) * net.I{2};
