@@ -1,6 +1,6 @@
 path(path, genpath('/donnees/edauce/RRNN-git'));
 
-SEED = 60
+SEED = 245
 
 net = init_param_cns_lif(0.5); net = init_systeme_lif(net,SEED); % 8
 
