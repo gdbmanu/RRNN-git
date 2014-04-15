@@ -7,11 +7,21 @@ net.t_out = net.t_abs; %
 %net.t_out = net.t_out + sum(net.S{1}(:,20)) / net.N(1);%  / net.delta_t;
 
 if ((2 * pi * mod(net.t_out/period_1, 1)) > pi) & ((2 * pi * mod(net.t_out/period_1, 1)) < 3 * pi/2) & (net.FLAG_P_CHANGE == 1)
+    %disp(net.t_out)
     if rand() < net.ENV_RENEWAL_RATE %1/3
         %net.FLAG_P_NEW = 1;
         %net.P12 = randn(net.N(1),1); net.P22 = randn(net.N(2), 1);
         net.A1 =  randn(net.N(1),1); % 0.35;%
         net.phi1 = rand(net.N(1),1) * 2 * pi; % 0;%
+        
+        %for i =51:100                    % correlations
+        %    net.A1(i) = net.A1(51);
+        %    net.phi1(i) = net.phi1(51);
+        %end;
+        
+        net.A1(1:500) = net.mem_P{1}(1:500);
+        net.phi1(1:500) = net.mem_P{2}(1:500);
+        
         net.A2 =  randn(net.N(2),1); % 0.35;%
         net.phi2 = rand(net.N(2),1) * 2 * pi; % 0;%
     else
