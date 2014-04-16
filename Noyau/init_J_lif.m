@@ -389,6 +389,7 @@ function net=init_J_lif(net)
             net.J{p}{q}=J;            
             
             net.J_masque{p}{q}=J_masque;
+            [net.masque_i{p}{q}, net.masque_j{p}{q}] = find(J_masque);
             
             % Pour accelerer, on repasse au format matrice pleine si le remplissage est superieur � 30 %
             if (nnz(net.J{p}{q})/prod(size(net.J{p}{q}))>0.3) % Taux de remplissage �lev� (plus de 30%)
@@ -408,7 +409,8 @@ function net=init_J_lif(net)
             % Variable temporaire : J_tau
             % Matrice des delais
             
-            % Parametres : net.tau_min, net.tau_moy  (matrices nb_pop x nb_pop)
+            % Parametres : net.tau_min, net.tau_moy  (matrices nb_pop x
+            % nb_pop)
             % definissent les delais
             
             if net.tau_moy(p,q)==0
@@ -436,15 +438,29 @@ function net=init_J_lif(net)
   
   for p=1:net.nb_pop
       for q=1:net.nb_pop
-          if net.densite(p,q)>0
-             net.tau_eff{p}{q}=net.tau{p}{q}+(net.tau_max(q)+1)*ones(net.N(p),1)*(0:net.N(q)-1);
-          end;  % if net.densite...
           if net.densite(q,p)>0
              net.tau_max(p)=max(net.tau_max(p),max(max(net.tau{q}{p})));
           end;
       end; % for q ...    
   end; % for p ...
 
+  for p=1:net.nb_pop
+      for q=1:net.nb_pop
+          if net.densite(p,q)>0
+             net.tau_eff{p}{q}=net.tau{p}{q}+(net.tau_max(q)+1)*ones(net.N(p),1)*(0:net.N(q)-1);
+          end;  % if net.densite...
+      end
+  end
+  
+
+  % Sparsification
+  for p=1:net.nb_pop
+      for q=1:net.nb_pop
+          net.tau{p}{q}=net.tau{p}{q}.*net.J_masque{p}{q};
+          net.tau_eff{p}{q}=nonzeros(net.tau_eff{p}{q}.*net.J_masque{p}{q});
+      end; % for q ...    
+  end; % for p ...  
+  
   % net.connect : donne la connectivit� effective � l'initialisation
   
   for p=1:nb_pop

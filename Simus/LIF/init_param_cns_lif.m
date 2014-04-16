@@ -17,8 +17,8 @@ net.script_init='init_env_cns_lif';
                         
 net.nb_pop = 2;                 % Nombre de populations 
 
-net.N=[1300;                     % net.N : taille du r�seau
-       1300];
+net.N=[1000;                     % net.N : taille du r�seau
+       800];
    
 %net.N = [500;
 %         100];
@@ -57,7 +57,7 @@ net.grad = zeros(net.nb_pop);
 
 net.densite=ones(net.nb_pop);          % densit� de connexion (entre 0 et 1)
                             
-net.distr={'exp','exp'}; % net.distr : distribution de poids :
+net.distr={'unif','unif'}; % net.distr : distribution de poids :
                                              % 'gauss' : distribution gaussienne
                                              % 'unif' : distribution uniforme
                                              % 'exp' : distribution exponentielle
@@ -114,7 +114,7 @@ g = 0; % I/E ( Brunel / 4)
 
 J_ref= 10; %10; %3; % 20; %15; %10; %
 
-sigma_J_ref = 1.6;  %2; % sigma_J_total 
+sigma_J_ref = 1.5;  %2; % sigma_J_total 
 
 d = J_ref * sqrt(1 + (1 + g/J_ref)^2) / sigma_J_ref;
 
@@ -139,11 +139,11 @@ net.N_aff=(net.N*ones(1,net.nb_pop))';
      
 d_eff = net.J_barre_eff./sqrt(net.sigma_J_eff.^2+(net.J_barre_eff.^2)./net.N_aff);
 
-%net.K = d_eff.^2;          % poids constants (loi uniforme)
+net.K = d_eff.^2;          % poids constants (loi uniforme)
 
 %net.K = 4/3 * d_eff.^2;   % poids [0,m] (loi uniforme)
 
-net.K = 2*d_eff.^2;         % loi exponentielle
+%net.K = 2*d_eff.^2;         % loi exponentielle
 
 %%%% DENSITE NON CONTRAINTE %%%%
 
@@ -206,14 +206,14 @@ net.FLAG_DELTA=1;
 net.FLAG_RAZ=0;
 net.FLAG_DASHBOARD=1;
 net.FLAG_STD = 0;
-net.FLAG_REV = 0; 
+net.FLAG_REV = 1; 
     net.V_plus = 5;
     net.V_moins = -1;
 net.FLAG_SCALING = 1;
 net.FLAG_STDP_EPS = 0;
 net.FLAG_BAYES = 0;
 net.FLAG_THETA = 0;
-net.FLAG_SFA = 0;
+net.FLAG_SFA = 1;
 
 
 net.REWARD=1;                       

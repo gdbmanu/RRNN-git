@@ -188,17 +188,24 @@ for t=1:nbp
     
     
     if FLAG_APP==1
+ 
+        for p=1:net.nb_pop
+            net.epsilon_i_flat{p}=reshape(net.epsilon_i{p}',1,net.N(p)*(net.tau_max(p)+1));
+        end;
+       
         for p=1:net.nb_pop
             for q=1:net.nb_pop
                 if alpha_eff(p,q)~=0
                     
                     % Calcul de m_in{p}{q}
-                    m_in{p}{q} = net.J_masque{p}{q}.*net.epsilon_i_flat{q}(net.tau_eff{p}{q});%net.epsilon{p}{q};%
+                    m_in{p}{q} = sparse(net.masque_i{p}{q}, net.masque_j{p}{q},net.epsilon_i_flat{q}(net.tau_eff{p}{q}),net.N(p),net.N(q));%net.epsilon{p}{q};%
+                    %m_in{p}{q} = sparse(net.J_masque{p}{q}.*net.epsilon_i_flat{q}(net.tau_eff{p}{q}));%net.epsilon{p}{q};%
                     %*spdiags(net.epsilon_i{q}(:,net.tau{p}{q}),0,net.N(q),net.N(q));
                     
                     % Calcul de S_in{p}{q}
                     if strcmp(net.app,'stdp')
-                        S_in{p}{q} = net.J_masque{p}{q}.*net.S_flat{q}(net.tau_eff{p}{q});
+                        S_in{p}{q} = sparse(net.masque_i{p}{q}, net.masque_j{p}{q},net.S_flat{q}(net.tau_eff{p}{q}),net.N(p),net.N(q));
+                        %S_in{p}{q} = sparse(net.J_masque{p}{q}.*net.S_flat{q}(net.tau_eff{p}{q}));
                         %*spdiags(net.S{q}(:,net.tau{p}{q}),0,net.N(q),net.N(q));
                     end;
                 end;
@@ -312,10 +319,12 @@ for t=1:nbp
         sum_h=0;
         for q=1:net.nb_pop
             if net.connect(p,q)
-                if p==6
-                    1;
-                end;
-                tire=net.J_masque{p}{q}.*net.S_flat{q}(net.tau_eff{p}{q});
+                %disp ([num2str(p),' ',num2str(q)])
+                %if p==6
+                %    1;
+                %end;
+                %tire = net.J_masque{p}{q}.*net.S_flat{q}(net.tau_eff{p}{q});
+                tire = sparse(net.masque_i{p}{q}, net.masque_j{p}{q}, net.S_flat{q}(net.tau_eff{p}{q}),net.N(p),net.N(q));
                 if net.FLAG_REV
                     epsilon_plus=r_plus*(net.J_masque_plus{p}{q}.*tire);%
                     epsilon_moins=r_moins*(net.J_masque_moins{p}{q}.*tire);
@@ -373,7 +382,7 @@ for t=1:nbp
         net.V{p}=[V,net.V{p}(:,1:net.tau_max(p))];
         net.m_V{p}=(1-net.delta_t/net.tau_r)*net.m_V{p}+net.delta_t/net.tau_r*V;
         BUF_V{p}(:,t)=net.V{p}(:,1);
-        
+    
     end;
     
     %%%%%%%%%
@@ -382,7 +391,7 @@ for t=1:nbp
     for p=1:net.nb_pop
         if 1 %TEST==0
             net.S{p}=[f_heavy(net,net.V{p}(:,1),net.theta{p}).*(1-net.bool_refr{p}(:,1)),net.S{p}(:,1:(net.tau_max(p)))];
-            net.S_flat{p}=reshape(net.S{p}',1,net.N(p)*(net.tau_max(p)+1));
+            net.S_flat{p}=sparse(reshape(net.S{p}',1,net.N(p)*(net.tau_max(p)+1)));
             net.bool_refr{p}=[sum(net.S{p}(:,1:net.nbp_r-1),2)>0,net.bool_refr{p}(:,1:(net.tau_max(p)))];
         else
             net.m{p}=net.m{p}+f_tanh_01(net.U{p}(:,1)-3,0.5)*net.delta_t/net.tau_r;
@@ -403,14 +412,14 @@ for t=1:nbp
     for p=1:net.nb_pop
         net.epsilon_i{p}=[net.gamma{p}.*net.epsilon_i{p}(:,1)+net.S{p}(:,1),net.epsilon_i{p}(:,1:(net.tau_max(p)))];
         %if strcmp(net.app,'stdp')
-        net.epsilon_i_flat{p}=reshape(net.epsilon_i{p}',1,net.N(p)*(net.tau_max(p)+1));
+        %    net.epsilon_i_flat{p}=reshape(net.epsilon_i{p}',1,net.N(p)*(net.tau_max(p)+1));
         %end;
         V=net.U{p}(:,1)-net.eta{p}(:,1);
         if net.FLAG_REV
             net.eta{p}=[net.gamma{p}.*(net.eta{p}(:,1)+net.S{p}(:,1).*V).*net.norm_g{p},net.eta{p}(:,1:(net.tau_max(p)))];
         else
             net.eta{p}=[net.gamma{p}.*(net.eta{p}(:,1)+net.S{p}(:,1).*V),net.eta{p}(:,1:(net.tau_max(p)))];
-        end            
+        end
     end;
     
     if (strcmp(net.app,'concurrent1')||strcmp(net.app,'concurrent2'))&&FLAG_APP==1  % ||strcmp(net.app,'stdp')
@@ -452,8 +461,7 @@ for t=1:nbp
         end;
     end;
     
-    
-    
+
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %         - FIN 2 -           %
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -500,7 +508,7 @@ for t=1:nbp
     
     
     if FLAG_APP==1
-        if net.REWARD~=0
+        if 0 %net.REWARD~=0
             disp(['REWARD=',num2str(net.REWARD)]);
         end;
         for p=1:net.nb_pop
@@ -640,7 +648,7 @@ for t=1:nbp
             end;
         end;
     end;
-    if rem(net.t_abs,(100/net.delta_t))==0
+    if rem(net.t_abs,(20/net.delta_t))==0
         disp(['t=',num2str(net.t_abs*net.delta_t)]);
         if net.FLAG_DASHBOARD
             for p=1:net.nb_pop
@@ -687,7 +695,6 @@ for t=1:nbp
     if strcmp(net.script_out,'')==0
         eval(net.script_out);
     end;
-    
 end;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

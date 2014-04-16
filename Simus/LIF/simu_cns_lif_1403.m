@@ -11,7 +11,7 @@ net.ENV_RENEWAL_RATE = 1; %2/3;
 
 net=iter_dyn_lif(net,200,0);
 
-%net=iter_dyn_lif(net,3000,1);
+%net=iter_dyn_lif(net,6000,1);
 
 %net=iter_dyn_lif(net,1000,0);
 

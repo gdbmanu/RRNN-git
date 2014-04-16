@@ -25,7 +25,6 @@ function net=init_dyn_lif(net);
                 net.J_masque_plus{p}{q}=sparse(net.J{p}{q}>0);                   
                 net.J_masque_moins{p}{q}=sparse(net.J{p}{q}<0);                   
             end;
-
             net.epsilon{p}{q}=zeros(net.N(p),net.N(q));
             net.epsilon_barre{p}{q}=0;
             
@@ -85,7 +84,7 @@ function net=init_dyn_lif(net);
      
       f0 = 20; %Hz
       net.S{p}=rand(net.N(p),net.tau_max(p)+1)< f0 / 1000 * net.delta_t;%1/mean(net.nbp_mb{p});% 1./mean(net.nbp_mb{1});%*(net.tau_max(p)+1);
-      net.S_flat{p}=reshape(net.S{p}',1,net.N(p)*(net.tau_max(p)+1));
+      net.S_flat{p}=sparse(reshape(net.S{p}',1,net.N(p)*(net.tau_max(p)+1)));
       net.bool_refr{p}=zeros(net.N(p),net.tau_max(p)+1);
       net.U{p}=zeros(net.N(p),net.tau_max(p)+1);
       net.U_tire{p}=zeros(net.N(p),1);
