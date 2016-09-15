@@ -1,15 +1,15 @@
 path(path, genpath('~/RRNN-git'));
 
-SEED = 60 %8
+SEED = 8%60 %
 
 net = init_param_cns_lif(0.5); net = init_systeme_lif(net,SEED); % 8
 
 net = init_dyn_lif(net);
 
-net.ENV_PERIOD = 60;
-net.ENV_RENEWAL_RATE = 1; %2/3;
+net.ENV_PERIOD = 30;
+net.ENV_RENEWAL_RATE = 1; %2/3; %1; %2/3;
 
-net=iter_dyn_lif(net,200,0);
+net=iter_dyn_lif(net,400,0);
 
 %net=iter_dyn_lif(net,6000,1);
 
