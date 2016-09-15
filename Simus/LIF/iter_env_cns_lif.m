@@ -46,12 +46,13 @@ if ((2 * pi * mod(net.t_out/period_1, 1)) > 3 * pi/2) & (net.FLAG_P_CHANGE == 0)
     net.FLAG_P_CHANGE = 1;
 end;
 
-net.I{1} =   1 + net.A1 .* (cos(2 * pi * net.t_out / period_1 + net.phi1));
+FLAG_NON_NUL = 1;
+net.I{1} =   1 + FLAG_NON_NUL * net.A1 .* (cos(2 * pi * net.t_out / period_1 + net.phi1));
 %net.I{1} = net.I{1}.* (net.I{1} > 0);
 %net.I{1} = net.P11 * cos(2 * pi * net.t_out / period_1) + net.P12 * sin(2 * pi * net.t_out / period_1);
 %net.I{1} = (1 + sin(2 * pi * net.t_out / period_2)) * net.I{1};
 
-net.I{2} =   1 + net.A2 .* (cos(2 * pi * net.t_out / period_1 + net.phi2));
+net.I{2} =   1 + FLAG_NON_NUL * net.A2 .* (cos(2 * pi * net.t_out / period_1 + net.phi2));
 %net.I{2} = net.I{2}.* (net.I{2} > 0);
 %net.I{2} = net.P21 * cos(2 * pi * net.t_out / period_1) + net.P22 * sin(2 * pi * net.t_out / period_1); 
 %net.I{2} = (1 + sin(2 * pi * net.t_out / period_2)) * net.I{2};

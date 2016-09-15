@@ -114,7 +114,7 @@ g = 0; % I/E ( Brunel / 4)
 
 J_ref= 10; %10; %3; % 20; %15; %10; %
 
-sigma_J_ref = 2;  %2; % sigma_J_total 
+sigma_J_ref = 1;  %2; % sigma_J_total 
 
 d = J_ref * sqrt(1 + (1 + g/J_ref)^2) / sigma_J_ref;
 
