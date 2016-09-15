@@ -1,4 +1,4 @@
-path(path, genpath('/donnees/edauce/RRNN-git'));
+path(path, genpath('~/RRNN-git'));
 
 SEED = 60 %8
 
