@@ -8,9 +8,12 @@ net.A1 =    randn(net.N(1),1); %
 net.phi1 =  rand(net.N(1),1) * 2 * pi; % 
 net.A2 =    randn(net.N(2),1); % 
 net.phi2 =  rand(net.N(2),1) * 2 * pi; % 
-
+net.A3 =    randn(net.N(1),1); % 
+net.phi3 =  rand(net.N(1),1) * 2 * pi; % 
+net.A4 =    randn(net.N(2),1); % 
+net.phi4 =  rand(net.N(2),1) * 2 * pi; % 
 %net.mem_P = {net.P11,net.P12,net.P21,net.P22};
-net.mem_P = {net.A1,net.phi1,net.A2,net.phi2};
+net.mem_P = {net.A1,net.phi1,net.A2,net.phi2,net.A3,net.phi3,net.A4,net.phi4};
 % net.net.A1 = net.mem_P{1}; net.phi1 = net.mem_P{2}; net.net.A2 = net.mem_P{3}; net.phi2 = net.mem_P{4};
 
 net.t_out = 0;
@@ -20,4 +23,5 @@ net.mem_I2 = [];
 net.mem_P_tref = [];
 
 net.FLAG_P_CHANGE = 1;
+net.FLAG_P_PAIR = 1;
 net.FLAG_P_NEW = 0;

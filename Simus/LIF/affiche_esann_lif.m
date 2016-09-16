@@ -28,7 +28,7 @@ subplot(8,2,9)
 imagesc(0.5*(1:600),1:100,-net.DYN_I{1}(:,1:600))
 hold on
 for nbp = net.mem_P_tref
-    plot([nbp*0.5:nbp*0.5+59],ones(60)*100,'r.')
+    plot([nbp*0.5:nbp*0.5+29],ones(30)*100,'r.')
 end
 axis('xy')
 axis([0 300 .5 100.5])
@@ -40,7 +40,7 @@ subplot(8,2,10)
 imagesc(0.5*(9801:10400),1:100,-net.DYN_I{1}(:,9801:10400))
 hold on
 for nbp = net.mem_P_tref
-    plot([nbp*0.5:nbp*0.5+59],ones(60)*100,'r.')
+    plot([nbp*0.5:nbp*0.5+29],ones(30)*100,'r.')
 end
 axis('xy')
 axis([4900 5200 .5 100.5])

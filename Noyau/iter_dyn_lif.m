@@ -400,7 +400,7 @@ for t=1:nbp
         end;
         if isfield(net,'FLAG_SFA')
             if net.FLAG_SFA   % spike frequency adaptation / time constant = 300 ms
-                net.theta{p}=(1-net.delta_t/300)*net.theta{p}+100*(net.delta_t/300)*net.S{p}(:,1);
+                net.theta{p}=(1-net.delta_t/600)*net.theta{p}+100*(net.delta_t/600)*net.S{p}(:,1);
             end;
         end;
         BUF_S{p}(:,t)=net.S{p}(:,1);
@@ -508,7 +508,7 @@ for t=1:nbp
     
     
     if FLAG_APP==1
-        if 0 %net.REWARD~=0
+        if false %net.REWARD~=0
             disp(['REWARD=',num2str(net.REWARD)]);
         end;
         for p=1:net.nb_pop
@@ -547,7 +547,7 @@ for t=1:nbp
                     elseif strcmp(net.app,'stdp')||strcmp(net.app,'concurrent2')||strcmp(net.app,'test_fl2')
                         %tt = spdiags(,0,net.N(p),net.N(p));
                         %delta_J=alpha_eff(p,q).*(tt*(S_out*m_in{p}{q} - m_out*S_in{p}{q}));
-                        delta_J=alpha_eff(p,q).*(0.9 * S_out*m_in{p}{q} - m_out*S_in{p}{q});
+                        delta_J=alpha_eff(p,q).*(S_out*m_in{p}{q} - m_out*S_in{p}{q});
                         %delta_J = delta_J .* (net.tau{p}{q}/20); % !!!??? rééquilibrage pour indépendance en tau !!!???
                     else
                         disp('R�gle non r�f�renc�e!!');
