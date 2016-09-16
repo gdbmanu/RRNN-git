@@ -114,7 +114,7 @@ g = 0; % I/E ( Brunel / 4)
 
 J_ref= 10; %10; %3; % 20; %15; %10; %
 
-sigma_J_ref = 1;  %2; % sigma_J_total 
+sigma_J_ref = 2;  %2; % sigma_J_total 
 
 d = J_ref * sqrt(1 + (1 + g/J_ref)^2) / sigma_J_ref;
 
@@ -197,7 +197,7 @@ net.sigma_theta=zeros(net.nb_pop,1);          % net.sigma_theta : ecart-type du 
 %                       APPRENTISSAGE                   %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-net.alpha=1;              % net.alpha : parametre d'apprentissage
+net.alpha=3;              % net.alpha : parametre d'apprentissage
                             % (regle l'intensit� de la modification des poids)
 
 
@@ -215,7 +215,7 @@ net.FLAG_SCALING = 1;
 net.FLAG_STDP_EPS = 0;
 net.FLAG_BAYES = 0;
 net.FLAG_THETA = 0;
-net.FLAG_SFA = 0;
+net.FLAG_SFA = 1;
 
 
 net.REWARD=1;                       
