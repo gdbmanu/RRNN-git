@@ -9,7 +9,7 @@ net = init_dyn_lif(net);
 net.ENV_PERIOD = 60;
 net.ENV_RENEWAL_RATE = 1; %2/3;
 
-net=iter_dyn_lif(net,200,0);
+net=iter_dyn_lif(net,1000,0);
 
 %net=iter_dyn_lif(net,6000,1);
 

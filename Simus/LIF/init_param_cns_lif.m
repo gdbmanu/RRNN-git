@@ -17,8 +17,8 @@ net.script_init='init_env_cns_lif';
                         
 net.nb_pop = 2;                 % Nombre de populations 
 
-net.N=[1000;                     % net.N : taille du r�seau
-       800];
+net.N=[5000;                     % net.N : taille du r�seau
+       1500];
    
 %net.N = [500;
 %         100];
@@ -114,7 +114,7 @@ g = 0; % I/E ( Brunel / 4)
 
 J_ref= 10; %10; %3; % 20; %15; %10; %
 
-sigma_J_ref = 1.5;  %2; % sigma_J_total 
+sigma_J_ref = 1;  %2; % sigma_J_total 
 
 d = J_ref * sqrt(1 + (1 + g/J_ref)^2) / sigma_J_ref;
 
@@ -213,7 +213,7 @@ net.FLAG_SCALING = 1;
 net.FLAG_STDP_EPS = 0;
 net.FLAG_BAYES = 0;
 net.FLAG_THETA = 0;
-net.FLAG_SFA = 1;
+net.FLAG_SFA = 0;
 
 
 net.REWARD=1;                       
