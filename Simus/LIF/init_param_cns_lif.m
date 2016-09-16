@@ -17,11 +17,12 @@ net.script_init='init_env_cns_lif';
                         
 net.nb_pop = 2;                 % Nombre de populations 
 
-net.N=[5000;                     % net.N : taille du r�seau
-       1500];
+
+%net.N=[5000;                     % net.N : taille du r�seau
+%       1000];
    
-%net.N = [500;
-%         100];
+net.N = [1000;
+         400];
      
 net.delta_t = delta_t;                      % R�solution  (en ms)
 
@@ -57,7 +58,7 @@ net.grad = zeros(net.nb_pop);
 
 net.densite=ones(net.nb_pop);          % densit� de connexion (entre 0 et 1)
                             
-net.distr={'unif','unif'}; % net.distr : distribution de poids :
+net.distr={'chi2','chi2'}; % net.distr : distribution de poids :
                                              % 'gauss' : distribution gaussienne
                                              % 'unif' : distribution uniforme
                                              % 'exp' : distribution exponentielle
@@ -114,7 +115,8 @@ g = 0; % I/E ( Brunel / 4)
 
 J_ref= 10; %10; %3; % 20; %15; %10; %
 
-sigma_J_ref = 1;  %2; % sigma_J_total 
+
+sigma_J_ref = 2;  %2; % sigma_J_total 
 
 d = J_ref * sqrt(1 + (1 + g/J_ref)^2) / sigma_J_ref;
 
@@ -137,9 +139,9 @@ net.N_aff=(net.N*ones(1,net.nb_pop))';
                        
 %%%% DENSITE CONTRAINTE : AJUSTEMENT DE LA DENSITE SELON J_BARRE ET SIGMA_J_EFF %%%%                                
      
-d_eff = net.J_barre_eff./sqrt(net.sigma_J_eff.^2+(net.J_barre_eff.^2)./net.N_aff);
+%d_eff = net.J_barre_eff./sqrt(net.sigma_J_eff.^2+(net.J_barre_eff.^2)./net.N_aff);
 
-net.K = d_eff.^2;          % poids constants (loi uniforme)
+%net.K = d_eff.^2;          % poids constants (loi uniforme)
 
 %net.K = 4/3 * d_eff.^2;   % poids [0,m] (loi uniforme)
 
@@ -147,8 +149,8 @@ net.K = d_eff.^2;          % poids constants (loi uniforme)
 
 %%%% DENSITE NON CONTRAINTE %%%%
 
-%net.K = [100 100;
-%         100 100]; % 
+net.K = [100 100;
+         100 100]; % 
 
 %net.K = net.N_aff; %K; % loi chi2 ou gauss (pas d'ajustement)
 
@@ -161,11 +163,11 @@ net.sigma_J = sqrt(abs(net.sigma_J_eff.^2-(1-net.densite).*(net.J_barre_eff.^2).
 
 %%%% AJUSTEMENTS LIES A LA DIMENSION %%%%
         
-net.dim=[0 1;
-         1 1];
+net.dim=[0 0;
+         0 0];
      
-net.rayon=[0 0.3;
-           0.3 0.3];
+net.rayon=[0 0;
+           0 0];
         
 net.grad=zeros(net.nb_pop);
 net.FLAG_GRAD='';
@@ -174,12 +176,14 @@ net.FLAG_GRAD='';
         
 %%% DELAIS
 
-sigma_tau =  19; %8;%  %8; %8;% net.nbp_d - 1;%
-net.tau_min= (20 - sigma_tau) * ones(net.nb_pop); %(net.nbp_d - sigma_tau) * ones(net.nb_pop);%net.nbp_d * ones(net.nb_pop);%net.nbp_d-4;%(param. fred)              % net.tau_min : delai de transmission minimal                
+sigma_tau =  8;%19; %  %8; %8;% net.nbp_d - 1;%
+net.tau_min= (net.nbp_d - sigma_tau) * ones(net.nb_pop);%(20 - sigma_tau) * ones(net.nb_pop); %net.nbp_d * ones(net.nb_pop);%net.nbp_d-4;%(param. fred)              % net.tau_min : delai de transmission minimal                
 
-net.tau_moy= sigma_tau * ones(2);% [net.nbp_d-1    net.nbp_d-1;       %[0 0; % net.tau_moy : parametre pour la distribution de poisson
-             %net.nbp_d-1    net.nbp_d-1];      % 0 0]; %
-net.FLAG_UNIF = 1;                  % delais uniformes / Poisson
+%net.tau_moy=  [net.nbp_d-1    net.nbp_d-1;       %[0 0; % net.tau_moy : parametre pour la distribution de poisson
+%              net.nbp_d-1    net.nbp_d-1];      % 0 0]; %
+net.tau_moy= sigma_tau * ones(2);
+             
+net.FLAG_UNIF = 0;                  % delais uniformes / Poisson
                           
                                            % (la valeur 0 indique des delais constants)
 
@@ -195,7 +199,7 @@ net.sigma_theta=zeros(net.nb_pop,1);          % net.sigma_theta : ecart-type du 
 %                       APPRENTISSAGE                   %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-net.alpha=1;              % net.alpha : parametre d'apprentissage
+net.alpha=3;              % net.alpha : parametre d'apprentissage
                             % (regle l'intensit� de la modification des poids)
 
 
@@ -207,7 +211,7 @@ net.FLAG_RAZ=0;
 net.FLAG_DASHBOARD=1;
 net.FLAG_STD = 0;
 net.FLAG_REV = 1; 
-    net.V_plus = 5;
+    net.V_plus = 6;
     net.V_moins = -1;
 net.FLAG_SCALING = 1;
 net.FLAG_STDP_EPS = 0;
