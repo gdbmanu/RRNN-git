@@ -2,7 +2,7 @@
 path(path, genpath('/donnees/edauce/RRNN-git'));
 
 mem = {}
-for SEED = 2:2 % 8%60 %
+for SEED = 1:1 % 8%60 %
 
     net = init_param_cns_lif(0.5); net = init_systeme_lif(net,SEED); % 8
 
@@ -13,7 +13,7 @@ for SEED = 2:2 % 8%60 %
 
     net=iter_dyn_lif(net,400,0);
 
-    net=iter_dyn_lif(net,100000,1);
+    net=iter_dyn_lif(net,10000,1);
 
     net=iter_dyn_lif(net,1000,0);
 
