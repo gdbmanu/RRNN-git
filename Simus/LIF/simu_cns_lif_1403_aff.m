@@ -15,8 +15,8 @@ mem_Y_1 = zeros(net.N(1), win);
 mem_I_1 = zeros(net.N(1), win);
 
 
-%for t = 5011 : 60: (net.t_abs - win) % 31 : 60: (net.t_abs - win)
-for t = 90031 : 60: (net.t_abs - win) % 31 : 60: (net.t_abs - win)
+for t = 31 : 60: (net.t_abs - win) %5011 : 60: (net.t_abs - win) % 
+%for t = 90031 : 60: (net.t_abs - win) % 31 : 60: (net.t_abs - win)
 %for t = 21 : 120: (net.t_abs - win - 10000)
     %if ismember(t,net.mem_P_tref)
     %if ismember(t + 10000, net.mem_P_tref)

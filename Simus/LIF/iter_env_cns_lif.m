@@ -26,6 +26,7 @@ if ((2 * pi * mod(net.t_out/period_1, 1)) > pi) & ((2 * pi * mod(net.t_out/perio
         net.A2 =  randn(net.N(2),1); % 0.35;%
         net.phi2 = rand(net.N(2),1) * 2 * pi; % 0;%
     else
+        net.REWARD = 1;
         disp(['Pat : nbp = ' , num2str(net.t_abs)]);
         net.mem_P_tref = [net.mem_P_tref, net.t_abs];
         %net.P12 = net.mem_P{2};net.P22 = net.mem_P{4};
@@ -36,7 +37,7 @@ if ((2 * pi * mod(net.t_out/period_1, 1)) > pi) & ((2 * pi * mod(net.t_out/perio
         net.FLAG_P_PAIR = 0;
     end
     net.FLAG_P_CHANGE = 0;
-elseif ((2 * pi * mod(net.t_out/period_1, 1)) > pi) & ((2 * pi * mod(net.t_out/period_1, 1)) < 3 * pi/2) & (net.FLAG_P_CHANGE == 1)&& (net.FLAG_P_PAIR == 0)
+elseif ((2 * pi * mod(net.t_out/period_1, 1)) > pi) & ((2 * pi * mod(net.t_out/period_1, 1)) < 3 * pi/2) & (net.FLAG_P_CHANGE == 1)& (net.FLAG_P_PAIR == 0)
     %net.A1 =  randn(net.N(1),1); % 0.35;%
     %net.phi1 = rand(net.N(1),1) * 2 * pi; % 0;%
     net.A1 =  net.mem_P{5};
@@ -55,6 +56,9 @@ if ((2 * pi * mod(net.t_out/period_1, 1)) > 3 * pi/2) & (net.FLAG_P_CHANGE == 0)
     %    net.P11 = net.mem_P{1}; net.P21 = net.mem_P{3};
     %end
     net.FLAG_P_CHANGE = 1;
+    if net.FLAG_P_PAIR == 1
+        net.REWARD = 0;
+    end
 end;
 
 

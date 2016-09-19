@@ -1,9 +1,9 @@
 
 clf
 
-nbp_f = 400 + 100000 + 1000 ;
+nbp_f = 400 + 10000 + 1000 ;
 t_f = nbp_f * 0.5;
-nbp_0 = nbp_f - 2000 ;
+nbp_0 = 1 %nbp_f - 2000 ;
 t_0 = nbp_0*0.5;
 
 subplot(4,1,1)
@@ -20,10 +20,12 @@ ylabel('Neuron #')
 title('A C T I V I T Y')
 
 subplot(4,1,2)
-plot(0.5 * ([1,401:nbp_f-1000]),[net.dash.sum_J{1}{1}(1:200,1), net.dash.sum_J{1}{1}(1:200,:)]')
-axis([1 t_f 0 0.4])
-xlabel('Time(ms)')
-title('W E I G H T S')
+if false 
+    plot(0.5 * ([1,401:nbp_f-1000]),[net.dash.sum_J{1}{1}(1:200,1), net.dash.sum_J{1}{1}(1:200,:)]')
+    axis([1 t_f 0 0.4])
+    xlabel('Time(ms)')
+    title('W E I G H T S')
+end
 
 subplot(8,2,9)
 %imagesc(0.5*(1:600),1:100,-net.mem_I1(:,1:600))

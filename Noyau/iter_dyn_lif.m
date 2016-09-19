@@ -400,7 +400,8 @@ for t=1:nbp
         end;
         if isfield(net,'FLAG_SFA')
             if net.FLAG_SFA   % spike frequency adaptation / time constant = 300 ms
-                net.theta{p}=(1-net.delta_t/300)*net.theta{p}+100*(net.delta_t/300)*net.S{p}(:,1);
+                TAU_SFA = 1000;
+                net.theta{p}=(1-net.delta_t/TAU_SFA)*net.theta{p}+100*(net.delta_t/TAU_SFA)*net.S{p}(:,1);
             end;
         end;
         BUF_S{p}(:,t)=net.S{p}(:,1);

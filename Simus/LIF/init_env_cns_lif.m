@@ -25,3 +25,4 @@ net.mem_P_tref = [];
 net.FLAG_P_CHANGE = 1;
 net.FLAG_P_PAIR = 1;
 net.FLAG_P_NEW = 0;
+net.REWARD = 0;
