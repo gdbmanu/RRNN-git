@@ -509,7 +509,7 @@ for t=1:nbp
     
     
     if FLAG_APP==1
-        if net.REWARD~=0 %false %
+        if false %net.REWARD~=0 
             disp(['REWARD=',num2str(net.REWARD)]);
         end;
         for p=1:net.nb_pop
