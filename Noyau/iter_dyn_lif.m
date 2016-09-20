@@ -373,8 +373,8 @@ for t=1:nbp
         V = net.U{p}(:,1)-net.eta{p}(:,1);
         if net.FLAG_REV
             net.norm_g{p}=ones(net.N(p),1);
-            indices_plus=find(V>=1);%net.V_plus);%
-            net.norm_g{p}(indices_plus)=1./V(indices_plus);%net.V_plus./V(indices_plus);%
+            indices_plus=find(V>=net.V_plus);%find(V>=1);%
+            net.norm_g{p}(indices_plus)=net.V_plus./V(indices_plus);%1./V(indices_plus);%
             indices_moins=find(V<=net.V_moins);%-1);%
             net.norm_g{p}(indices_moins)=net.V_moins./V(indices_moins);%-1./V(indices_moins);%
             V = V.* net.norm_g{p};
@@ -509,7 +509,7 @@ for t=1:nbp
     
     
     if FLAG_APP==1
-        if false %net.REWARD~=0
+        if net.REWARD~=0 %false %
             disp(['REWARD=',num2str(net.REWARD)]);
         end;
         for p=1:net.nb_pop
