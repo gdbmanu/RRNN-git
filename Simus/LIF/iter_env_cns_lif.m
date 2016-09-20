@@ -78,8 +78,8 @@ net.mem_t_out = [net.mem_t_out, net.t_out];
 
 %net.REWARD = 10 * (0.1 - sum(net.epsilon_i{1}(:,1)) / net.N(1) / 5);
 
-%net.mem_I1 = [net.mem_I1, net.I{1}];
-%net.mem_I2 = [net.mem_I2, net.I{2}];
+net.mem_I1 = [net.mem_I1, net.I{1}];
+net.mem_I2 = [net.mem_I2, net.I{2}];
 
 %disp('hello')
 

@@ -13,9 +13,9 @@ for SEED = 1:1 % 8%60 %
 
     net=iter_dyn_lif(net,400,0);
 
-    net=iter_dyn_lif(net,10000,1);
+    %net=iter_dyn_lif(net,10000,1);
 
-    net=iter_dyn_lif(net,1000,0);
+    %net=iter_dyn_lif(net,1000,0);
 
     %mem{SEED} = net;
     
