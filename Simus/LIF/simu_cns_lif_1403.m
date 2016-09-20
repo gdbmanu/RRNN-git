@@ -1,5 +1,5 @@
-%path(path, genpath('~/RRNN-git'));
-path(path, genpath('/donnees/edauce/RRNN-git'));
+path(path, genpath('~/RRNN-git'));
+%path(path, genpath('/donnees/edauce/RRNN-git'));
 
 mem = {}
 for SEED = 1:1 % 8%60 %
@@ -11,6 +11,9 @@ for SEED = 1:1 % 8%60 %
     net.ENV_PERIOD = 30;
     net.ENV_RENEWAL_RATE = 5/6; %2/3; %2/3; %1; %2/3;
 
+    net.FLAG_SFA = 1;
+    net.alpha = 10;
+    
     net=iter_dyn_lif(net,400,0);
 
     %net=iter_dyn_lif(net,10000,1);

@@ -20,7 +20,7 @@ ylabel('Neuron #')
 title('A C T I V I T Y')
 
 subplot(4,1,2)
-if false 
+if true 
     plot(0.5 * ([1,401:nbp_f-1000]),[net.dash.sum_J{1}{1}(1:200,1), net.dash.sum_J{1}{1}(1:200,:)]')
     axis([1 t_f 0 0.4])
     xlabel('Time(ms)')
