@@ -9,12 +9,12 @@ FLAG_CORR=1;
 % net.I = {0};
 
 
-I_ref = 0;%3.5; % 1; %
+I_ref = 1; %0;%3.5; % 
 net.I= {I_ref,I_ref};
 net.nb_pop = 2;
-J_ref= 3; %3; % 20; %20; %15; %10; %
+J_ref= 10; %3; %3; % 20; %20; %15; %10; %
 g = 0;
-sigma_J_ref = 2.2;  % sigma_J_total 
+sigma_J_ref = 1; %2.2;  % sigma_J_total 
 d = J_ref * sqrt(1 + (1 + g/J_ref)^2) / sigma_J_ref;
 
 tt = 1; %net.tau_m_ref(1) / net.tau_m_ref(2);

@@ -68,7 +68,7 @@ net.I{1} =   1 + net.ENV_FLAG_NON_FLAT * net.A1 .* (cos(2 * pi * net.t_out / per
 %net.I{1} = (1 + sin(2 * pi * net.t_out / period_2)) * net.I{1};
 
 
-net.I{2} =   1 + ENV_FLAG_NON_FLAT * net.A2 .* (cos(2 * pi * net.t_out / period_1 + net.phi2));
+net.I{2} =   1 + net.ENV_FLAG_NON_FLAT * net.A2 .* (cos(2 * pi * net.t_out / period_1 + net.phi2));
 %net.I{2} = net.I{2}.* (net.I{2} > 0);
 %net.I{2} = net.P21 * cos(2 * pi * net.t_out / period_1) + net.P22 * sin(2 * pi * net.t_out / period_1); 
 %net.I{2} = (1 + sin(2 * pi * net.t_out / period_2)) * net.I{2};
