@@ -24,6 +24,9 @@ net.nb_pop = 2;                 % Nombre de populations
 net.N = [1000;
          400];
      
+%net.N = [400;
+%         100];
+     
 net.delta_t = delta_t;                      % R�solution  (en ms)
 
 %net.tau_m = 10;                                 % Constante de temps du neurone (ms) 

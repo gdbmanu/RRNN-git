@@ -22,15 +22,15 @@ title('A C T I V I T Y')
 
 if true 
     subplot(4,1,2)
-    plot(0.5 * ([1,401:nbp_f-1000]),[net.dash.sum_J{1}{1}(1:200,1), net.dash.sum_J{1}{1}(1:200,:)]')
+    plot(0.5 * ([1,401:nbp_f-1000]),[net.dash.sum_J{1}{1}(1:400,1), net.dash.sum_J{1}{1}(1:400,:)]')
     axis([1 t_f 0 0.4])
     xlabel('Time(ms)')
     title('W E I G H T S')
 end
 
 subplot(8,2,9)
-imagesc(0.5*(1:600),1:100,-net.mem_I1(:,1:600))
-%imagesc(0.5*(1:600),1:100,-net.DYN_I{1}(:,1:600))
+%imagesc(0.5*(1:600),1:100,-net.mem_I1(:,1:600))
+imagesc(0.5*(1:600),1:100,-net.DYN_I{1}(:,1:600))
 hold on
 for nbp = net.mem_P_tref
     plot([nbp*0.5:nbp*0.5+59],ones(60)*100,'r.')
@@ -41,8 +41,8 @@ ylabel('INPUT')
 title('I N I T I A L')
 
 subplot(8,2,10)
-imagesc(0.5*(nbp_f-600+1:nbp_f),1:100,-net.mem_I1(:,nbp_f-600+1:nbp_f))
-%imagesc(0.5*(nbp_f-600+1:nbp_f),1:100,-net.DYN_I{1}(:,nbp_f-600+1:nbp_f))
+%imagesc(0.5*(nbp_f-600+1:nbp_f),1:100,-net.mem_I1(:,nbp_f-600+1:nbp_f))
+imagesc(0.5*(nbp_f-600+1:nbp_f),1:100,-net.DYN_I{1}(:,nbp_f-600+1:nbp_f))
 hold on
 for nbp = net.mem_P_tref
     plot([nbp*0.5:nbp*0.5+59],ones(60)*100,'r.')

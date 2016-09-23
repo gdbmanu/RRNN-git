@@ -260,7 +260,7 @@ function net=init_J_lif(net)
                                                 
                 disp(['Matrice pleine p=',num2str(p),' q=',num2str(q)]);               
                 
-                J_masque=1;                     % Ici le masque est scalaire (tous les liens de la population sont modifiables)
+                J_masque=ones(net.N(p),net.N(q));                     % Ici le masque est scalaire (tous les liens de la population sont modifiables)
                                                 
                                                 %%%%%%%%%%%%%%%%%%%%%%
             else                                %%% Matrice creuse %%%

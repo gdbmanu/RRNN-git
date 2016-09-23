@@ -1,5 +1,5 @@
-path(path, genpath('~/RRNN-git'));
-%path(path, genpath('/donnees/edauce/RRNN-git'));
+%path(path, genpath('~/RRNN-git'));
+path(path, genpath('/donnees/edauce/RRNN-git'));
 
 mem = {}
 for SEED = 2 % 8%60 %
@@ -7,12 +7,12 @@ for SEED = 2 % 8%60 %
     net = init_param_cns_lif(0.5); 
     
     % taille 
-    net.N = [1000;
-             400];
+    %net.N = [100;
+    %         40];
 
     % type de neurone
-    net.FLAG_REV = 0; 
-    net.FLAG_SFA = 0;
+    net.FLAG_REV = 1; 
+    net.FLAG_SFA = 1;
     
     % type de delai
     net.tau_d = 10;   % Délai moyen (ms)
@@ -35,12 +35,12 @@ for SEED = 2 % 8%60 %
 
     net = init_systeme_lif(net,SEED); % 8
     net = init_dyn_lif(net);
-    net=iter_dyn_lif(net,400,0);
+    net=iter_dyn_lif(net,600,0);
     
 
-    net=iter_dyn_lif(net,10000,1);
+    %net=iter_dyn_lif(net,10000,1);
 
-    net=iter_dyn_lif(net,1000,0);
+    %net=iter_dyn_lif(net,1000,0);
 
     %mem{SEED} = net;
     
